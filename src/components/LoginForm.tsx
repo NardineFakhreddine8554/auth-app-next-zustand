@@ -26,7 +26,7 @@ export default function LoginForm() {
           <div>
             <Label>Email</Label>
             <Input value={email} onChange={(e) => setEmail(e.target.value)} />
-           {fieldErrors && fieldErrors.email  &&<p className="text-red-500">{fieldErrors.email[0]}</p>}
+           {fieldErrors && fieldErrors?.email  &&<p className="text-red-500">{fieldErrors.email[0]}</p>}
           </div>
           <div>
             <Label>Password</Label>
@@ -36,9 +36,9 @@ export default function LoginForm() {
           <Button type="submit" disabled={loading}>
             {loading ? 'Logging in...' : 'Login'}
           </Button>
-          {user && <p className="text-green-600">Welcome {user.name} ({user.role.name})</p>}
-          {user &&user.role.name=='admin'&& redirect('/admin-dashboard')}
-          {user &&user.role.name=='user'&& redirect('/user-dashboard')}
+          {user && <p className="text-green-600">Welcome {user?.name} ({user?.role?.name})</p>}
+          {user &&user?.role?.name=='admin'&& redirect('/admin-dashboard')}
+          {user &&user?.role?.name=='user'&& redirect('/user-dashboard')}
           <p className="mt-4">
   Don't have an account? <a href="/register" className="text-blue-600 underline">Register here</a>
 </p>

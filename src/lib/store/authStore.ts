@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware"; // 🟨 NEW
 import axios from "axios";
+import api from "@/lib/axios";
 
 interface User {
   id: number;
@@ -44,7 +45,7 @@ export const useAuthStore = create<AuthState>()(
       register: async (name, email, password, role) => {
         set({ loading: true, error: null });
         try {
-          const res = await axios.post("http://localhost:8000/api/register", {
+          const res = await api.post("/register", {
             name,
             email,
             password,
@@ -61,8 +62,9 @@ export const useAuthStore = create<AuthState>()(
 
       login: async (email, password) => {
         set({ loading: true, error: null, fieldErrors: {} });
+        console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
         try {
-          const res = await axios.post("http://localhost:8000/api/login", {
+          const res = await api.post("/login", {
             email,
             password,
           });
@@ -88,7 +90,7 @@ export const useAuthStore = create<AuthState>()(
 
       fetchUser: async () => {
         try {
-          const res = await axios.get("http://localhost:8000/api/user");
+          const res = await api.get("/user");
           set({ user: res.data });
         } catch {
           set({ user: null });
